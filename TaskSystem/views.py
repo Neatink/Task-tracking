@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView,ListView
 from .models import Task,TaskPriority,TaskStatus
 
+class HomeView(TemplateView):
+    template_name = "home.html"
 
 class TasksView(ListView):
     context_object_name = 'tasks'
