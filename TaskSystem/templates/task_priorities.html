@@ -6,8 +6,13 @@
     <title>Task Priorities</title>
 </head>
 <body>
+    <h3>
+        <a href="/home">Back</a>
+    </h3>
     {% for task in taskprior %}
-    <h2>{{ task.name }}
+    <h2>
+    <a href="/task_priorities_details/{{ task.id }}">{{ task.name }}
+    </h2>
     {% endfor %}
 </body>
 </html>

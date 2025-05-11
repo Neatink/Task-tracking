@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Statuses</title>
+    <title>Task Priorities Details</title>
 </head>
 <body>
     <h3>
-        <a href="/home">Back</a>
+        <a href="/task_priorities/">Back</a><br>
     </h3>
-    {% for task in taskstatus %}
     <h2>
-    <a href="/task_statuses_details/{{ task.id }}">{{ task.name }}
+        ID:{{ taskprior.id }}<br>
+        NAME:{{ taskprior.name }}<br>
     </h2>
-    {% endfor %}
 </body>
 </html>
