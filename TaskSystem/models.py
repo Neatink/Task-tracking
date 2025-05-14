@@ -21,8 +21,9 @@ class Task(models.Model):
     description = models.TextField(max_length=200)
     status = models.ForeignKey(TaskStatus,max_length=50,on_delete=models.SET_NULL,null=True)
     priority = models.ForeignKey(TaskPriority,max_length=35,on_delete=models.SET_NULL,null=True)
-    create_date = models.DateField(auto_now_add=True)
+    create_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
+    deadline = models.DateTimeField(blank=True,null=True)
     
     def __str__(self):
         return self.name
@@ -30,4 +31,5 @@ class Task(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
-    description = models.TextField(null=False,blank=False)
+    description = models.TextField(null=False)
+    create_date = models.DateTimeField(auto_now_add=True)

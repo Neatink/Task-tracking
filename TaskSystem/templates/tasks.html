@@ -6,13 +6,14 @@
     <title>Tasks</title>
 </head>
 <body>
-    <h3>
-    <a href="/home">Back</a>
-    </h3>
-    {% for task in tasks %}
     <h2>
-    <a href="/tasks_details/{{ task.id }}">{{ task.name }}({{ task.priority }})</a>
+        <a href="/home">Back</a><br>
+        <a href="/add_tasks">Add</a>
     </h2>
+    {% for task in tasks %}
+    <h3>
+    <a href="/tasks_details/{{ task.id }}">{{ task.name }}({{ task.priority }})</a>
+    </h3>
     {% endfor %}
 </body>
 </html>
