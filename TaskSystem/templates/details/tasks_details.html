@@ -17,8 +17,10 @@
     PRIORITY:{{ tasks.priority }}<br>
     STATUS:{{ tasks.status }}<br>
     CREATE DATE:{{ tasks.create_date }}<br>
+    DEADLINE:{{ tasks.deadline }}<br>
     </h2>
     <h1>
+    <a href="/update_task/{{ tasks.id }}">Оновити</a><br>
     <a href="/delete_task/{{ tasks.id }}">Видалити</a>
     </h1>
 </body>

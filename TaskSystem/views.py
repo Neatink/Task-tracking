@@ -1,8 +1,7 @@
-from django.shortcuts import redirect,render
-from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView
+from django.shortcuts import redirect
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
 from .models import Task,TaskPriority,TaskStatus
 from .forms import TaskForm,TaskPriorityForm,TaskStatusForm
-
 
 class HomeView(TemplateView):
     template_name = "home.html"
@@ -95,3 +94,24 @@ class DeleteTaskStatusesView(DeleteView):
         self.object.delete()
 
         return redirect('/task_statuses')
+    
+
+class UpdateTaskView(UpdateView):
+    template_name = 'update/update_tasks.html'
+    model = Task
+    form_class = TaskForm
+    success_url ="/tasks"
+
+    
+class UpdateTaskPrioritiesView(UpdateView):
+    template_name = 'update/update_task_priorities.html'
+    model = TaskPriority
+    form_class = TaskPriorityForm
+    success_url ="/task_priorities"
+    
+    
+class UpdateTaskStatusesView(UpdateView):
+    template_name = 'update/update_task_statuses.html'
+    model = TaskStatus
+    form_class = TaskStatusForm
+    success_url ="/task_statuses"
