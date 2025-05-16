@@ -7,7 +7,7 @@
 </head>
 <body>
     <h3>
-    <a href="/tasks/">Back</a><br>
+    <a href="/tasks/">Назад</a><br>
     </h3>
     <h2>
     ID:{{ tasks.id }}<br>
@@ -18,5 +18,8 @@
     STATUS:{{ tasks.status }}<br>
     CREATE DATE:{{ tasks.create_date }}<br>
     </h2>
+    <h1>
+    <a href="/delete_task/{{ tasks.id }}">Видалити</a>
+    </h1>
 </body>
 </html>

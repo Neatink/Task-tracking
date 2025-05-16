@@ -1,7 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path
-from TaskSystem.views import TasksView,TaskStatusesView,TaskPrioritiesView,HomeView,TasksDetailsView,TaskStatusesDetailsView,TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView
+from TaskSystem.views import TasksView,TaskStatusesView,TaskPrioritiesView,HomeView,TasksDetailsView,TaskStatusesDetailsView
+from TaskSystem.views import TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView,DeleteTaskView,DeleteTaskPrioritiesView,DeleteTaskStatusesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,4 +16,7 @@ urlpatterns = [
     path('add_tasks/', AddTaskView.as_view()),
     path('add_task_priorities/', AddTaskPrioritiesView.as_view()),
     path('add_task_statuses/', AddTaskStatusesView.as_view()),
+    path('delete_task/<pk>', DeleteTaskView.as_view()),
+    path('delete_task-status/<pk>', DeleteTaskStatusesView.as_view()),
+    path('delete_task-priority/<pk>', DeleteTaskPrioritiesView.as_view()),
 ]

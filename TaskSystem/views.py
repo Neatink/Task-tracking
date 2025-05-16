@@ -1,8 +1,8 @@
-from django.http import HttpResponse
-from django.views.generic import TemplateView,ListView,DetailView,FormView,CreateView
+from django.shortcuts import redirect,render
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView
 from .models import Task,TaskPriority,TaskStatus
-from django.contrib.auth.models import User
 from .forms import TaskForm,TaskPriorityForm,TaskStatusForm
+
 
 class HomeView(TemplateView):
     template_name = "home.html"
@@ -63,3 +63,35 @@ class AddTaskStatusesView(CreateView):
     template_name = 'add/add_task_statuses.html'
     form_class = TaskStatusForm
     success_url = '/task_statuses'
+
+class DeleteTaskView(DeleteView):
+    model = Task
+    context_object_name = 'tasks'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+
+        return redirect('/tasks')
+    
+
+class DeleteTaskPrioritiesView(DeleteView):
+    model = TaskPriority
+    context_object_name = 'taskprior'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+
+        return redirect('/task_priorities')
+    
+
+class DeleteTaskStatusesView(DeleteView):
+    model = TaskStatus
+    context_object_name = 'taskstatus'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+
+        return redirect('/task_statuses')
