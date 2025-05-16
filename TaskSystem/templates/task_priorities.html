@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/static/styles/styles.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Priorities</title>
@@ -12,7 +13,7 @@
     </h2>
     {% for task in taskprior %}
     <h3>
-    <a href="/task_priorities_details/{{ task.id }}">{{ task.name }}
+    <a href="/task_priorities_details/{{ task.id }}">{{ task.name }}</a>
     </h3>
     {% endfor %}
 </body>

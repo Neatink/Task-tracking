@@ -1,0 +1,185 @@
+
+:root {
+    --primary-dark: #0a192f;
+    --primary-medium: #172a45;
+    --primary-light: #243b53;
+    --accent: #007acc;
+    --text-light: #e0e6ed;
+    --text-medium: #9aa5b1;
+    --text-dark: #526475;
+}
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: var(--primary-dark);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+a, a:hover, a:focus {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--text-medium);
+}
+
+
+h1, h2, h3, label {
+    font-weight: 600;
+    color: var(--text-light);
+    text-transform: capitalize;
+    margin: 10px 0;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+}
+.glow {
+    text-shadow: 0 0 4px var(--accent), 0 0 8px var(--accent);
+    transition: text-shadow 0.3s ease;
+}
+
+h1:hover, h2:hover, h3:hover, label:hover {
+    transform: translateY(-2px);
+}
+
+
+a, a:hover, a:focus {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+label:hover {
+    color: var(--accent);
+}
+a:hover {
+    text-shadow: 1px 1px 5px rgba(0, 122, 204, 0.4);
+}
+
+
+h2 a, h3 a {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--primary-medium);
+    margin: 5px 0;
+}
+
+h2 a:hover, h3 a:hover {
+    background-color: var(--primary-light);
+}
+
+
+.card {
+    background-color: var(--primary-medium) !important;
+    color: var(--text-light);
+    border: none;
+    margin: 10px 0;
+}
+
+.card-header, .card-body, .card-footer {
+    background-color: var(--primary-light);
+    color: var(--text-light);
+}
+
+.card a {
+    color: var(--accent);
+}
+
+.card a:hover {
+    color: var(--text-medium);
+}
+
+
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    color: var(--text-light);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+}
+
+
+.navbar, .dropdown-menu {
+    background-color: var(--primary-medium);
+}
+
+.navbar a, .dropdown-item {
+    color: var(--text-light);
+}
+
+.navbar a:hover, .dropdown-item:hover {
+    color: var(--accent);
+    background-color: var(--primary-light);
+}
+
+
+.table-dark, .table-dark th, .table-dark td {
+    background-color: var(--primary-medium);
+    color: var(--text-light);
+}
+
+.table-dark thead th {
+    background-color: var(--primary-light);
+}
+
+.table-hover tbody tr:hover {
+    background-color: var(--primary-light);
+}
+
+
+input[type="text"], input[type="number"], textarea, select {
+    background-color: var(--primary-light);
+    color: var(--text-light);
+    border: 1px solid var(--text-medium);
+    padding: 8px;
+    margin: 5px 0;
+    width: 300px;
+    border-radius: 4px;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 5px var(--accent);
+}
+
+
+
+footer {
+    background-color: var(--primary-medium);
+    color: var(--text-medium);
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+button, .btn {
+    background: linear-gradient(145deg, var(--accent), var(--primary-light));
+    color: var(--text-light);
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-shadow: 0 0 4px var(--accent), 0 0 8px var(--accent);
+}
+
+button:hover, .btn:hover {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent);
+}
+
+button:active, .btn:active {
+    background: var(--accent);
+    transform: translateY(2px);
+}
