@@ -2,7 +2,6 @@ from django import forms
 from .models import Task,TaskPriority,TaskStatus
 
 class TaskForm(forms.ModelForm):
-    
     class Meta:
         model = Task
         fields = ["name","status","priority","description","deadline"]

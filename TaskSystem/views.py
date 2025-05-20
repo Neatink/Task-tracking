@@ -2,9 +2,14 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
 from .models import Task,TaskPriority,TaskStatus
 from .forms import TaskForm,TaskPriorityForm,TaskStatusForm
+from .mixins import UserIsOwnerMixin
 
 class HomeView(TemplateView):
     template_name = "home.html"
+
+class DeniedView(TemplateView):
+    template_name = "denied.html"
+
 
 class TasksView(ListView):
     context_object_name = 'tasks'
@@ -63,7 +68,7 @@ class AddTaskStatusesView(CreateView):
     form_class = TaskStatusForm
     success_url = '/task_statuses'
 
-class DeleteTaskView(DeleteView):
+class DeleteTaskView(UserIsOwnerMixin,DeleteView):
     model = Task
     context_object_name = 'tasks'
     
@@ -96,7 +101,7 @@ class DeleteTaskStatusesView(DeleteView):
         return redirect('/task_statuses')
     
 
-class UpdateTaskView(UpdateView):
+class UpdateTaskView(UserIsOwnerMixin,UpdateView):
     template_name = 'update/update_tasks.html'
     model = Task
     form_class = TaskForm
