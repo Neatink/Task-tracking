@@ -1,8 +1,9 @@
 
 from django.contrib import admin
-from django.urls import path
 from TaskSystem.views import TasksView,TaskStatusesView,TaskPrioritiesView,HomeView,TasksDetailsView,TaskStatusesDetailsView,UpdateTaskView,UpdateTaskPrioritiesView,UpdateTaskStatusesView
-from TaskSystem.views import TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView,DeleteTaskView,DeleteTaskPrioritiesView,DeleteTaskStatusesView,DeniedView
+from TaskSystem.views import TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView,DeleteTaskView,DeleteTaskPrioritiesView,DeleteTaskStatusesView,DeniedView,RegisterUserView
+from django.urls import path
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,4 +24,6 @@ urlpatterns = [
     path('update_task-status/<pk>', UpdateTaskStatusesView.as_view()),
     path('update_task-priority/<pk>', UpdateTaskPrioritiesView.as_view()),
     path('denied', DeniedView.as_view()),
+    path('login/', LoginView.as_view()),
+    path('register/',RegisterUserView.as_view()),
 ]

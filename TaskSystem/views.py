@@ -1,8 +1,9 @@
 from django.shortcuts import redirect
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
 from .models import Task,TaskPriority,TaskStatus
-from .forms import TaskForm,TaskPriorityForm,TaskStatusForm
+from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm
 from .mixins import UserIsOwnerMixin
+from django.contrib.auth.views import LoginView
 
 class HomeView(TemplateView):
     template_name = "home.html"
@@ -120,3 +121,8 @@ class UpdateTaskStatusesView(UpdateView):
     model = TaskStatus
     form_class = TaskStatusForm
     success_url ="/task_statuses"
+    
+class RegisterUserView(CreateView):
+    template_name = 'registration/register.html'
+    success_url = '/login'
+    form_class = RegisterForm

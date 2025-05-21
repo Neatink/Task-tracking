@@ -1,5 +1,7 @@
 from django import forms
 from .models import Task,TaskPriority,TaskStatus
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -25,7 +27,6 @@ class TaskForm(forms.ModelForm):
 
 
 class TaskPriorityForm(forms.ModelForm):
-    
     class Meta:
         model = TaskPriority
         fields = ["name"]
@@ -39,7 +40,6 @@ class TaskPriorityForm(forms.ModelForm):
 
 
 class TaskStatusForm(forms.ModelForm):
-    
     class Meta:
         model = TaskStatus
         fields = ["name"]
@@ -50,3 +50,9 @@ class TaskStatusForm(forms.ModelForm):
                 'autofocus':'Prisutstvuet',
                 }),
         }
+        
+class RegisterForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ["username","email"]

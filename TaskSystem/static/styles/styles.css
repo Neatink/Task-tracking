@@ -54,7 +54,10 @@ form {
     max-width: 600px;
     margin: auto;
 }
+
 select,
+input[type="email"],
+input[type="password"],
 input[type="text"],
 textarea {
     background-color: #0e2239;
