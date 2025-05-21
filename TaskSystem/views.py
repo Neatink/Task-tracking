@@ -15,7 +15,7 @@ class DeniedView(TemplateView):
 class TasksView(ListView):
     context_object_name = 'tasks'
     template_name = "tasks.html"
-    model = Task
+    model = Task    
     
     def get_queryset(self):
         queryset = Task.objects.filter()
@@ -24,7 +24,7 @@ class TasksView(ListView):
         
         if status:
             queryset = queryset.filter(status_id = status)
-        elif priority:
+        if priority:
             queryset = queryset.filter(priority_id = priority)
         return queryset
     
@@ -141,3 +141,6 @@ class RegisterUserView(CreateView):
     template_name = 'registration/register.html'
     success_url = '/login'
     form_class = RegisterForm
+    
+class ProfileView(LoginRequiredMixin,TemplateView):
+    template_name = 'profile.html'

@@ -60,7 +60,6 @@ input[type="email"],
 input[type="password"],
 input[type="text"],
 textarea {
-    background-color: #0e2239;
     border: 1px solid #2e5984;
     border-radius: 5px;
     padding: 10px;
