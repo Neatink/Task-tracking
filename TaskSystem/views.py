@@ -1,7 +1,7 @@
 from django.shortcuts import redirect
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
 from .models import Task,TaskPriority,TaskStatus
-from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm
+from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm,FilterForm
 from .mixins import UserIsOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -16,7 +16,22 @@ class TasksView(ListView):
     context_object_name = 'tasks'
     template_name = "tasks.html"
     model = Task
-
+    
+    def get_queryset(self):
+        queryset = Task.objects.filter()
+        status = self.request.GET.get('status')
+        priority = self.request.GET.get('priority')
+        
+        if status:
+            queryset = queryset.filter(status_id = status)
+        elif priority:
+            queryset = queryset.filter(priority_id = priority)
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = FilterForm(self.request.GET)
+        return context
 
 class TaskPrioritiesView(ListView):
     context_object_name = 'taskprior'

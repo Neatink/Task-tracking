@@ -56,3 +56,13 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["username","email"]
+
+class FilterForm(forms.Form):
+    status = forms.ModelChoiceField(
+        queryset = TaskStatus.objects.all(),
+        required=False
+    )
+    priority = forms.ModelChoiceField(
+        queryset = TaskPriority.objects.all(),
+        required=False
+    )

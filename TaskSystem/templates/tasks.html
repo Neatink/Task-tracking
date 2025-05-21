@@ -9,14 +9,22 @@
 </head>
 <body>
     <h3>
-        <div class="d-grid gap-2 d-md-block">
         <a href="/home" class="btn btn-primary">Назад</a>
         <a href="/add_tasks" class="btn btn-secondary">Додати</a>
-        </div>
     </h3>
-    {% for task in tasks %}
-    <a href="/tasks_details/{{ task.id }}">{{ task.name }}({{ task.priority }})</a>
-    {% endfor %}
+    <form method="get" class="row g-3 mb-4 mt-2">
+        {{ filter.status.label_tag }}
+        {{ filter.status }}
+        {{ filter.priority.label_tag }}
+        {{ filter.priority }}
+
+        <button type="submit" class="btn btn-success">Фiльтрувати</button>
+        <a href="/tasks" class="btn btn-danger">Зкинути фiльтр</a>
+
+    </form>
+        {% for task in tasks %}
+        <a href="/tasks_details/{{ task.id }}">{{ task.name }}({{ task.priority }})</a>
+        {% endfor %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>
