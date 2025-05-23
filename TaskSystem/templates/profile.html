@@ -13,14 +13,14 @@
         <h1>
             Привiт,<u>{{ user }}</u>!
         </h1>
-        <h2>
+        <h3>
             <ul>
                 <li><strong>ID:</strong>{{ user.id }}</li>
                 <li><strong>Пошта:</strong> {{ user.email }}</li>
                 <li><strong>Останній вхід:</strong> {{ user.last_login }}</li>
                 <li><strong>Дата реєстрацiї:</strong> {{ user.date_joined }}</li>
             </ul>
-        </h2>
+        </h3>
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Вийти з аккаунту</button>
     </form>

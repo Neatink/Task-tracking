@@ -8,20 +8,33 @@
     <title>Tasks</title>
 </head>
 <body>
-    <h3>
+    <h3 class="mb-3">
         <a href="/home" class="btn btn-primary">Назад</a>
         <a href="/add_tasks" class="btn btn-secondary">Додати</a>
-    </h3>
-    <form method="get" class="row g-3 mb-4 mt-2">
-        {{ filter.status.label_tag }}
-        {{ filter.status }}
-        {{ filter.priority.label_tag }}
-        {{ filter.priority }}
+        <button class="btn btn-outline-light" 
+                type="button" 
+                data-bs-toggle="collapse" 
+                data-bs-target="#taskFilter" 
+                aria-expanded="false" 
+                aria-controls="taskFilter">
+          Фiльтр
+        </button>
+      </h3>
+      
+      <div class="collapse" id="taskFilter">
+        <form method="get" class="filter-form">
+          <label class="visually-hidden" for="id_status">Status</label>
+          {{ filter.status }}
+      
+          <label class="visually-hidden" for="id_priority">Priority</label>
+          {{ filter.priority }}
+      
+          <button type="submit" class="btn btn-success">✓</button>
+          <a href="/tasks" class="btn btn-danger">✕</a>
+        </form>
+      </div>
+      
 
-        <button type="submit" class="btn btn-success">Фiльтрувати</button>
-        <a href="/tasks" class="btn btn-danger">Зкинути фiльтр</a>
-
-    </form>
         {% for task in tasks %}
         <a href="/tasks_details/{{ task.id }}">{{ task.name }}({{ task.priority }})</a>
         {% endfor %}
