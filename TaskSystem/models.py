@@ -31,5 +31,5 @@ class Task(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
-    description = models.TextField(null=False)
+    description = models.TextField(null=False,blank=False)
     create_date = models.DateTimeField(auto_now_add=True)

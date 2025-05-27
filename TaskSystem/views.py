@@ -1,7 +1,7 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,HttpResponseRedirect
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
-from .models import Task,TaskPriority,TaskStatus
-from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm,FilterForm
+from .models import Task,TaskPriority,TaskStatus,Comment
+from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm,FilterForm,CommentForm
 from .mixins import UserIsOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -61,6 +61,12 @@ class TasksDetailsView(LoginRequiredMixin,DetailView):
     context_object_name = 'tasks'
     template_name = "details/tasks_details.html"
     model = Task
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment"] = Comment.objects.filter(task=self.object)
+        context["form"] = CommentForm
+        return context
     
 
 class AddTaskView(LoginRequiredMixin,CreateView):
@@ -144,3 +150,13 @@ class RegisterUserView(CreateView):
     
 class ProfileView(LoginRequiredMixin,TemplateView):
     template_name = 'profile.html'
+    
+class AddCommentView(CreateView):
+    form_class = CommentForm
+    template_name = "details/tasks_details.html"
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.task = Task.objects.get(id=self.kwargs['task_pk'])
+        form.save()
+        return HttpResponseRedirect(self.request.POST.get(f'/tasks_details/{ self.kwargs['task_pk'] }', f'/tasks_details/{ self.kwargs['task_pk'] }'))

@@ -7,22 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Details</title>
 </head>
-<body>
-    <div class="d-grid gap-2 d-md-block">
+<body class="task-details-page">
+    <div class="d-grid gap-2 d-md-block text-start ms-0">
     <a href="/tasks/" class="btn btn-primary">Назад</a>
     </div>
-    <h2>
-    ID:{{ tasks.id }}<br>
-    NAME:{{ tasks.name }}<br>
-    DESCRIPTION:{{ tasks.description }}<br>
-    USER:{{ tasks.user }}<br>
-    PRIORITY:{{ tasks.priority }}<br>
-    STATUS:{{ tasks.status }}<br>
-    CREATE DATE:{{ tasks.create_date }}<br>
-    DEADLINE:{{ tasks.deadline }}<br>
+
+    <h2 class="text-start ms-3">
+    ID:<strong>{{ tasks.id }}</strong><br>
+    NAME:<strong>{{ tasks.name }}</strong><br>
+    DESCRIPTION:<strong>{{ tasks.description }}</strong><br>
+    USER:<strong>{{ tasks.user }}</strong><br>
+    PRIORITY:<strong>{{ tasks.priority }}</strong><br>
+    STATUS:<strong>{{ tasks.status }}</strong><br>
+    CREATE DATE:<strong>{{ tasks.create_date }}</strong><br>
+    DEADLINE:<strong>{{ tasks.deadline }}</strong><br>
     </h2>
+
+    <div class="update-delete-buttons text-start ms-0">
     <a href="/update_task/{{ tasks.id }}"class="btn btn-secondary btn-lg">Оновити</a>
     <a href="/delete_task/{{ tasks.id }}"class="btn btn-danger">Видалити</a>
+    </div><br>
+    <div class="comments-add text-start ms-0">
+        <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
+                {% csrf_token %}
+                {{ form }}
+                <br><button type="submit" class="btn btn-outline-secondary">Додати коментар</button>
+        </form>
+    </div>
+
+    <div class="comments-section text-start ms-0">
+        {% for comm in comment %}
+        <details class="comment-collapse" open>
+            <summary class="comment-header">
+                <div>
+                    <span class="comment-user">{{ comm.user }}</span>
+                    <span class="comment-date">{{ comm.create_date}}</span>
+                </div>
+            </summary>
+            <div class="comment-content">
+                <p class="comment-text">{{ comm.description }}</p>
+            </div>
+        </details>
+        {% endfor %}
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>
