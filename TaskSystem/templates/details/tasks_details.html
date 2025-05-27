@@ -27,9 +27,9 @@
     <div class="update-delete-buttons text-start ms-0">
     <a href="/update_task/{{ tasks.id }}"class="btn btn-secondary btn-lg">Оновити</a>
     <a href="/delete_task/{{ tasks.id }}"class="btn btn-danger">Видалити</a>
-    </div><br>
+    </div>
     {% endif %}
-    <div class="comments-add text-start ms-0">
+    <br><div class="comments-add text-start ms-0">
         <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
                 {% csrf_token %}
                 {{ form }}

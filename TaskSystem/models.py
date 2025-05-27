@@ -33,3 +33,6 @@ class Comment(models.Model):
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
     description = models.TextField(null=False,blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-create_date']
