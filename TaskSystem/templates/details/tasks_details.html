@@ -23,10 +23,12 @@
     DEADLINE:<strong>{{ tasks.deadline }}</strong><br>
     </h2>
 
+    {% if user == tasks.user %}
     <div class="update-delete-buttons text-start ms-0">
     <a href="/update_task/{{ tasks.id }}"class="btn btn-secondary btn-lg">Оновити</a>
     <a href="/delete_task/{{ tasks.id }}"class="btn btn-danger">Видалити</a>
     </div><br>
+    {% endif %}
     <div class="comments-add text-start ms-0">
         <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
                 {% csrf_token %}
