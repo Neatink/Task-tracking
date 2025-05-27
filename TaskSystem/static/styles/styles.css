@@ -223,3 +223,28 @@ body.task-details-page form:not(.filter-form) {
     margin: 0 !important;
     text-align: left !important;
     }
+    
+.task-link {
+    display: block;
+    width: 270px;
+    background-color: #1a2f4d;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    color: #9dc9ff;
+    transition: background-color 0.3s;
+    }
+    
+.task-author {
+    display: block;
+    color: #6b8ba4;
+    font-size: 0.75em;
+    margin-top: 4px;
+    }
+
+.task-deadline{
+    display: block;
+    color: #6b8ba4;
+    font-size: 0.85em;
+    margin-top: 4px;
+}

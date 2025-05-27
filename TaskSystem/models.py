@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 class TaskStatus(models.Model):
     name = models.CharField(max_length=35)
@@ -25,6 +26,14 @@ class Task(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     deadline = models.DateTimeField(blank=True,null=True)
     
+    class Meta:
+        ordering = ['deadline']    
+
+    def clean(self):
+        if self.deadline is not None and self.deadline < timezone.now():
+            raise ValidationError('Дедлайн повинен бути не в минулому часi!')
+        
+
     def __str__(self):
         return self.name
 
