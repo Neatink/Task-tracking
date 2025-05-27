@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 
 class TaskStatus(models.Model):
     name = models.CharField(max_length=35)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -12,6 +13,7 @@ class TaskStatus(models.Model):
 
 class TaskPriority(models.Model):
     name = models.CharField(max_length=35)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name

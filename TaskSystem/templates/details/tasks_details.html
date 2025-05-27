@@ -30,10 +30,19 @@
     </div>
     {% endif %}
     <br><div class="comments-add text-start ms-0">
-        <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
                 {% csrf_token %}
                 {{ form }}
                 <br><button type="submit" class="btn btn-outline-secondary">Додати коментар</button>
+        {% else %}
+        <form class="no-comment">
+        <h2>
+            Зайдiть в аккаунт щоб прокоментувати!<br>
+            <a href="/login">Логiн</a>
+        </h2>
+        </form>
+        {% endif %}
         </form>
     </div>
 

@@ -76,12 +76,12 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ["description"]
         labels = {
-            'description': 'Текст коментаря:'
+            'description': 'Прокоментувати:'
         }
         widgets = {
             "description": forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder':'Додати комментар',
+                'placeholder':'Текст коментаря',
                 'autofocus':'Prisutstvuet',
             }),
         }

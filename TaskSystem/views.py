@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class HomeView(TemplateView):
     template_name = "home.html"
 
+
 class DeniedView(TemplateView):
     template_name = "denied.html"
 
@@ -45,19 +46,19 @@ class TaskStatusesView(ListView):
     model = TaskStatus
     
     
-class TaskStatusesDetailsView(LoginRequiredMixin,DetailView):
+class TaskStatusesDetailsView(DetailView):
     context_object_name = 'taskstatus'
     template_name = "details/task_statuses_details.html"
     model = TaskStatus
     
 
-class TaskPrioritiesDetailsView(LoginRequiredMixin,DetailView):
+class TaskPrioritiesDetailsView(DetailView):
     context_object_name = 'taskprior'
     template_name = "details/task_priorities_details.html"
     model = TaskPriority
     
     
-class TasksDetailsView(LoginRequiredMixin,DetailView):
+class TasksDetailsView(DetailView):
     context_object_name = 'tasks'
     template_name = "details/tasks_details.html"
     model = Task
@@ -84,11 +85,20 @@ class AddTaskPrioritiesView(LoginRequiredMixin,CreateView):
     form_class = TaskPriorityForm
     success_url = '/task_priorities'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class AddTaskStatusesView(LoginRequiredMixin,CreateView):
     template_name = 'add/add_task_statuses.html'
     form_class = TaskStatusForm
     success_url = '/task_statuses'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class DeleteTaskView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = Task
@@ -101,7 +111,7 @@ class DeleteTaskView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
         return redirect('/tasks')
     
 
-class DeleteTaskPrioritiesView(LoginRequiredMixin,DeleteView):
+class DeleteTaskPrioritiesView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = TaskPriority
     context_object_name = 'taskprior'
     
@@ -112,7 +122,7 @@ class DeleteTaskPrioritiesView(LoginRequiredMixin,DeleteView):
         return redirect('/task_priorities')
     
 
-class DeleteTaskStatusesView(LoginRequiredMixin,DeleteView):
+class DeleteTaskStatusesView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = TaskStatus
     context_object_name = 'taskstatus'
     
@@ -130,28 +140,31 @@ class UpdateTaskView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
     success_url ="/tasks"
 
     
-class UpdateTaskPrioritiesView(LoginRequiredMixin,UpdateView):
+class UpdateTaskPrioritiesView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
     template_name = 'update/update_task_priorities.html'
     model = TaskPriority
     form_class = TaskPriorityForm
     success_url ="/task_priorities"
     
     
-class UpdateTaskStatusesView(LoginRequiredMixin,UpdateView):
+class UpdateTaskStatusesView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
     template_name = 'update/update_task_statuses.html'
     model = TaskStatus
     form_class = TaskStatusForm
     success_url ="/task_statuses"
+    
     
 class RegisterUserView(CreateView):
     template_name = 'registration/register.html'
     success_url = '/login'
     form_class = RegisterForm
     
+    
 class ProfileView(LoginRequiredMixin,TemplateView):
     template_name = 'profile.html'
     
-class AddCommentView(CreateView):
+    
+class AddCommentView(LoginRequiredMixin,CreateView):
     form_class = CommentForm
     template_name = "details/tasks_details.html"
     

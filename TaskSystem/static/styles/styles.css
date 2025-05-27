@@ -183,14 +183,14 @@ a:hover {
     }
 
 .comment-header::after {
-    content: "⇧";
+    content: "⇑";
     color: #9dc9ff;
     transition: transform 0.3s ease;
     font-size: 1.15em;
     }
 
 .comment-collapse[open] .comment-header::after {
-    content: "⇩";
+    content: "⇓";
     }
 
 .comment-content {
