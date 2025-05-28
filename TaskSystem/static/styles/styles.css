@@ -248,3 +248,18 @@ body.task-details-page form:not(.filter-form) {
     font-size: 0.85em;
     margin-top: 4px;
 }
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+.left-buttons {
+    display: flex;
+    gap: 10px;
+}
+.task-link {
+    display: block;
+    margin-bottom: 0.5rem;
+}

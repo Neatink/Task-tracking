@@ -8,11 +8,14 @@
     <title>Task Priorities</title>
 </head>
 <body>
-    <h3>
-        <div class="d-grid gap-2 d-md-block">
+    <div class="header-container">
+        <div class="left-buttons">
         <a href="/home" class="btn btn-primary">Назад</a>
         <a href="/add_task_priorities" class="btn btn-secondary">Додати</a>
-    </h3>
+        </div>
+        <a href="/profile" class="btn btn-success">Профiль</a>
+    </div>
+
     <div class="comment-dates">
     {% for task in taskprior %}
     <a href="/task_priorities_details/{{ task.id }}" class="task-link">{{ task.name }}
