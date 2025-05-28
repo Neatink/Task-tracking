@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 
+
 class TaskStatus(models.Model):
     name = models.CharField(max_length=35)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -39,11 +40,30 @@ class Task(models.Model):
     def __str__(self):
         return self.name
 
+
 class Comment(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
     description = models.TextField(null=False,blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
+    like = models.IntegerField(blank=False,null=False,default=0)
+    dislike = models.IntegerField(blank=False,null=False,default=0)
 
     class Meta:
         ordering = ['-create_date']
+
+        
+class Like(models.Model):
+    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ["comment","user"]
+    
+    
+class Dislike(models.Model):
+    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = ["comment","user"]
