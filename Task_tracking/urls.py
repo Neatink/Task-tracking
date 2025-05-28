@@ -1,7 +1,7 @@
 
 from django.contrib import admin
-from TaskSystem.views import TasksView,TaskStatusesView,TaskPrioritiesView,HomeView,TasksDetailsView,TaskStatusesDetailsView,UpdateTaskView,UpdateTaskPrioritiesView,UpdateTaskStatusesView,ProfileView,AddCommentView
-from TaskSystem.views import TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView,DeleteTaskView,DeleteTaskPrioritiesView,DeleteTaskStatusesView,DeniedView,RegisterUserView
+from TaskSystem.views import TasksView,TaskStatusesView,TaskPrioritiesView,HomeView,TasksDetailsView,TaskStatusesDetailsView,UpdateTaskView,UpdateTaskPrioritiesView,UpdateTaskStatusesView,ProfileView,AddCommentView,DeleteCommentView
+from TaskSystem.views import TaskPrioritiesDetailsView,AddTaskView,AddTaskPrioritiesView,AddTaskStatusesView,DeleteTaskView,DeleteTaskPrioritiesView,DeleteTaskStatusesView,DeniedView,RegisterUserView,UpdateCommentView
 from django.contrib.auth.views import LoginView,LogoutView
 from django.urls import path
 
@@ -28,5 +28,7 @@ urlpatterns = [
     path('register/',RegisterUserView.as_view()),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('profile/', ProfileView.as_view()),
-    path('add_comment/<int:task_pk>', AddCommentView.as_view(), name='add_comment'),
+    path('add_comment/<task_pk>', AddCommentView.as_view(), name='add_comment'),
+    path('update_comment/<pk>', UpdateCommentView.as_view()),
+    path('delete_comment/<pk>', DeleteCommentView.as_view()),
 ]

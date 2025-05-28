@@ -102,7 +102,6 @@ class AddTaskStatusesView(LoginRequiredMixin,CreateView):
 
 class DeleteTaskView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = Task
-    context_object_name = 'tasks'
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -113,7 +112,6 @@ class DeleteTaskView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
 
 class DeleteTaskPrioritiesView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = TaskPriority
-    context_object_name = 'taskprior'
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -124,7 +122,6 @@ class DeleteTaskPrioritiesView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
 
 class DeleteTaskStatusesView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
     model = TaskStatus
-    context_object_name = 'taskstatus'
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -166,10 +163,27 @@ class ProfileView(LoginRequiredMixin,TemplateView):
     
 class AddCommentView(LoginRequiredMixin,CreateView):
     form_class = CommentForm
-    template_name = "details/tasks_details.html"
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.task = Task.objects.get(id=self.kwargs['task_pk'])
         form.save()
         return HttpResponseRedirect(self.request.POST.get(f'/tasks_details/{ self.kwargs['task_pk'] }', f'/tasks_details/{ self.kwargs['task_pk'] }'))
+    
+
+class UpdateCommentView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
+    model = Comment
+    fields = ["description"]
+    template_name = 'update/update_comment.html'
+
+    def get_success_url(self):
+        return (self.request.POST.get(f'/tasks_details/{ self.get_object().task_id }', f'/tasks_details/{ self.get_object().task_id }'))
+    
+    
+class DeleteCommentView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
+    model = Comment
+    
+    def get(self, request, *args, **kwargs):
+        task_id = self.get_object().task_id
+        self.get_object().delete()
+        return redirect(f'/tasks_details/{task_id}')

@@ -28,9 +28,11 @@
       <div class="collapse" id="taskFilter">
         <form method="get" class="filter-form">
           <label class="visually-hidden" for="id_status">Status</label>
+          {{ filter.status.label }}:
           {{ filter.status }}
-      
+          
           <label class="visually-hidden" for="id_priority">Priority</label>
+          {{ filter.priority.label }}:
           {{ filter.priority }}
       
           <button type="submit" class="btn btn-success">✓</button>
