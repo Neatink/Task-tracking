@@ -13,9 +13,17 @@
         <a href="/home" class="btn btn-primary">Назад</a>
         <a href="/add_task_statuses" class="btn btn-secondary">Додати</a>
     </h3>
+    <div class="comment-dates">
     {% for task in taskstatus %}
-    <a href="/task_statuses_details/{{ task.id }}">{{ task.name }}</a>
+    <a href="/task_statuses_details/{{ task.id }}" class="task-link">{{ task.name }}
+    {% if user == task.user %}
+    <span class="task-author">{{ task.user.username }}(You)</span>
+    {% else %}
+    <span class="task-author">{{ task.user.username }}</span>
+    {% endif %}
+    </a>
     {% endfor %}
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>
