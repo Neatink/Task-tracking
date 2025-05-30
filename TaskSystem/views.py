@@ -1,6 +1,6 @@
 from django.shortcuts import redirect,HttpResponseRedirect
-from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView
-from .models import Task,TaskPriority,TaskStatus,Comment
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView,UpdateView,View
+from .models import Task,TaskPriority,TaskStatus,Comment,Like,Dislike
 from .forms import TaskForm,TaskPriorityForm,TaskStatusForm,RegisterForm,FilterForm,CommentForm
 from .mixins import UserIsOwnerMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -68,8 +68,8 @@ class TasksDetailsView(DetailView):
         context["comment"] = Comment.objects.filter(task=self.object)
         context["form"] = CommentForm
         return context
-    
 
+    
 class AddTaskView(LoginRequiredMixin,CreateView):
     template_name = 'add/add_tasks.html'
     form_class = TaskForm
@@ -163,12 +163,12 @@ class ProfileView(LoginRequiredMixin,TemplateView):
     
 class AddCommentView(LoginRequiredMixin,CreateView):
     form_class = CommentForm
-
+    
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.task = Task.objects.get(id=self.kwargs['task_pk'])
+        form.instance.task = Task.objects.get(id=self.kwargs['pk'])
         form.save()
-        return HttpResponseRedirect(self.request.POST.get(f'/tasks_details/{ self.kwargs['task_pk'] }', f'/tasks_details/{ self.kwargs['task_pk'] }'))
+        return HttpResponseRedirect(self.request.POST.get(f'/tasks_details/{ self.kwargs['pk'] }', f'/tasks_details/{ self.kwargs['pk'] }'))
     
 
 class UpdateCommentView(LoginRequiredMixin,UserIsOwnerMixin,UpdateView):
@@ -187,3 +187,27 @@ class DeleteCommentView(LoginRequiredMixin,UserIsOwnerMixin,DeleteView):
         task_id = self.get_object().task_id
         self.get_object().delete()
         return redirect(f'/tasks_details/{task_id}')
+    
+
+class CommentLikeView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        comment = Comment.objects.get(pk=self.kwargs.get('pk'))
+        Dislike.objects.filter(comment=comment, user=request.user).delete()
+        like = Like.objects.filter(comment=comment, user=request.user)
+        if like.exists():
+            like.delete()
+        else:
+            Like.objects.create(comment=comment, user=request.user)
+        return HttpResponseRedirect(f'/tasks_details/{comment.task_id}/')
+
+
+class CommentDislikeView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        comment = Comment.objects.get(pk=self.kwargs.get('pk'))
+        Like.objects.filter(comment=comment, user=request.user).delete()
+        dislike = Dislike.objects.filter(comment=comment, user=request.user)
+        if dislike.exists():
+            dislike.delete()
+        else:
+            Dislike.objects.create(comment=comment, user=request.user)
+        return HttpResponseRedirect(f'/tasks_details/{comment.task_id}/')

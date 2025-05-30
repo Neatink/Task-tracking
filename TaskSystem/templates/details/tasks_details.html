@@ -31,7 +31,7 @@
     {% endif %}
     <br><div class="comments-add text-start ms-0">
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_comment' task_pk=tasks.id %}">
+            <form method="post" action="{% url 'add_comment' tasks.id %}">
                 {% csrf_token %}
                 {{ form }}
                 <br><button type="submit" class="btn btn-outline-secondary">Додати коментар</button>
@@ -56,14 +56,20 @@
                     <span class="comment-date">{{ comm.create_date}}</span>
                 </div>
                 {% if user.is_authenticated %}
+                {% if user == comm.user %}
                 <div class="btn-group btn-group-sm">
                 <a href="/update_comment/{{ comm.id }}" class="btn btn-outline-primary">✎</a>
                 <a href="/delete_comment/{{ comm.id }}" class="btn btn-outline-primary">🗙</a>
+                {% endif %}
+                {% endif %}
             </div>
-            {% endif %}
             </summary>
             <div class="comment-content">
                 <p class="comment-text">{{ comm.description }}</p>
+            {% if user.is_authenticated %}
+            <a href= "/comment/like/{{ comm.id }}/" type="submit" class="btn btn-outline-primary">👍({{ comm.like.count }})</a>
+            <a href= "/comment/dislike/{{ comm.id }}/" type="submit" class="btn btn-outline-primary">👎({{ comm.dislike.count }})</a>
+            {% endif %}
             </div>
         </details>
         {% endfor %}

@@ -46,23 +46,21 @@ class Comment(models.Model):
     task = models.ForeignKey(Task,on_delete=models.CASCADE)
     description = models.TextField(null=False,blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
-    like = models.IntegerField(blank=False,null=False,default=0)
-    dislike = models.IntegerField(blank=False,null=False,default=0)
 
     class Meta:
         ordering = ['-create_date']
 
         
 class Like(models.Model):
-    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE,related_name='like')
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     
     class Meta:
         unique_together = ["comment","user"]
-    
+
     
 class Dislike(models.Model):
-    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment,null=False,blank=False,on_delete=models.CASCADE,related_name='dislike')
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     
     class Meta:
