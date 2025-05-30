@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Details</title>
 </head>
+
+
+<body> 
+
 <body class="task-details-page">
     <div class="d-grid gap-2 d-md-block text-start ms-0">
     <a href="/tasks/" class="btn btn-primary">Назад</a>
@@ -26,27 +30,33 @@
     {% if user == tasks.user %}
     <div class="update-delete-buttons text-start ms-0">
     <a href="/update_task/{{ tasks.id }}"class="btn btn-secondary btn-lg">Оновити</a>
-    <a href="/delete_task/{{ tasks.id }}"class="btn btn-danger">Видалити</a>
+    <a href="/delete_task/{{ tasks.id }}"class="btn btn-danger btn-lg">Видалити</a>
     </div>
     {% endif %}
-    <br><div class="comments-add text-start ms-0">
+    <br>
+    <div class="comments-add text-center">
         {% if user.is_authenticated %}
-            <form method="post" action="{% url 'add_comment' tasks.id %}">
+            <form method="post" action="{% url 'add_comment' tasks.id %}" class="d-inline-block w-100">
                 {% csrf_token %}
-                {{ form }}
-                <br><button type="submit" class="btn btn-outline-secondary">Додати коментар</button>
+                <div class="form-group mb-3">
+                    {{ form }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-secondary px-5">Додати коментар</button>
+                </div>
+            </form>
         {% else %}
-        <form class="no-comment">
-        <h2>
-            Зайдiть в аккаунт щоб прокоментувати!<br>
-            <a href="/login">Логiн</a>
-        </h2>
-        </form>
+            <div class="no-comment">
+                <h2>
+                    Зайдiть в аккаунт щоб прокоментувати!<br>
+                    <a href="/login">Логiн</a>
+                </h2>
+            </div>
         {% endif %}
-        </form>
     </div>
 
-    <div class="comments-section text-start ms-0">
+    <div class="d-flex justify-content-center">
+        <div class="comments-section">
         {% for comm in comment %}
         <details class="comment-collapse" open>
             <summary class="comment-header">
@@ -62,7 +72,7 @@
                 <a href="/delete_comment/{{ comm.id }}" class="btn btn-outline-primary">🗙</a>
                 {% endif %}
                 {% endif %}
-            </div>
+            </div>  
             </summary>
             <div class="comment-content">
                 <p class="comment-text">{{ comm.description }}</p>

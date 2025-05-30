@@ -148,10 +148,13 @@ a:hover {
 }
 
 .comments-section {
-    max-width: 640px;
-    margin: 25px 0px 0;
-    background-color: #132b45;
-    border-radius: 6px;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1000px;
+    margin: 25px auto 0 auto;
+    background-color: transparent;
+    padding: 0 10px;
 }
 .comments-section h5 {
     color: #9dc9ff;
@@ -267,3 +270,31 @@ body.task-details-page form:not(.filter-form) {
 .comment-header .btn-group {
     margin-right: 1rem;
   }
+
+/* Центрирование формы */
+.comments-add {
+    display: block;
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.comments-add form {
+    display: inline-block;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Стили для поля ввода */
+.form-group textarea {
+    width: 100% !important;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    resize: vertical;
+}
+
+/* Гарантированное центрирование кнопки */
+.text-center {
+    text-align: center !important;
+}
